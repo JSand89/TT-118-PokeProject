@@ -1,0 +1,44 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 20px; /* Añadimos un pequeño padding para evitar que el contenido quede pegado a los bordes */
+    min-height: 100vh; /* Cambiamos a min-height para asegurar que siempre ocupe el 100% del alto de la pantalla */
+    align-items: flex-start; /* Alineamos el contenido al inicio de la pantalla para evitar el centrado vertical */
+    overflow-y: auto; /* Permitimos el scroll vertical si es necesario */
+}
+.pokedex-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+h1 {
+    text-align: center;
+    color: #ff0000;
+}
+
+.pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.pokemon-card {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.pokemon-card img {
+    width: 100px;
+    height: 100px;
+}
