@@ -8,10 +8,10 @@ let pokemonToSearch = ""
 
 async function getPokemonData(idPokemon) {
     try {
-        const res = await fetch (`http://127.0.0.1:3005/api/pokemon/${idPokemon}`)
+        //const res = await fetch (`http://127.0.0.1:3005/api/pokemon/${idPokemon}`)
+        const res = await fetch (`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
         const pokemon = await res.json()
-        console.log(pokemon)
-        return pokemon.data        
+        return pokemon        
     } catch (error) {
         console.error(error)
         return false
@@ -25,13 +25,14 @@ function displayPokemon(pokemon){
     <img src = "${pokemon.sprites.front_default}" alt ="imagen del ${pokemon.name}">
     <h3> ${pokemon.name}</h3>
     <p>ID: ${pokemon.id}</p>
+</div>
+
     `
     pokemonCard.addEventListener("click",()=>showPokemonDetail(pokemon))
     pokemonList.appendChild(pokemonCard)
     return true
 }
 function showPokemonDetail(pokemon){
-    console.log(pokemon)
     let typesName = []
     let typesImg = ""
     for(i=0;i<pokemon.types.length;i++){
@@ -47,6 +48,9 @@ function showPokemonDetail(pokemon){
     <img src="${pokemon.sprites.back_default}" alt="image view back ${pokemon.name}">
     <h3>${typesName}</h3>
     <div>${typesImg}</div>
+     <div class="pokemon-register">
+    <h2>Registrar estado de un Pokémon</h2>
+    
     `
 }
 async function loadPokedex() {
@@ -72,4 +76,43 @@ searchPokemon.addEventListener("click",async ()=>{
     }
     showPokemonDetail(pokemon) 
 })
+
 loadPokedex()
+
+const registerForm = document.getElementById('registerForm');
+registerForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const pokemon_id = parseInt(document.getElementById('pokemon_id').value);
+    const view = document.getElementById('view').checked;
+    const capture = document.getElementById('catch').checked;
+    const in_team = document.getElementById('in_team').checked;
+    const power_level = parseInt(document.getElementById('power_level').value);
+
+    const bodyData = {
+        pokemon_id,
+        view,
+        catch: capture,
+        in_team,
+        power_level
+    };
+
+    console.log("Enviando:", bodyData);
+
+    try {
+        const res = await fetch('http://127.0.0.1:3006/api/pokemon/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData)
+        });
+
+        const result = await res.json();
+        console.log("Respuesta del servidor:", result);
+        alert('Estado del Pokémon registrado con éxito.');
+    } catch (error) {
+        console.error("Error al registrar el estado:", error);
+        alert('Error al registrar el Pokémon.');
+    }
+});

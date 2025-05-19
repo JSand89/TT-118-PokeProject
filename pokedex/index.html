@@ -19,6 +19,24 @@
         <button id="btnBack">Back to Pokedex</button>
         <div id="pokemonInfo"></div>
     </div>
+    <form id="registerForm">
+        <label>ID del Pokémon:</label>
+        <input type="number" id="pokemon_id"  required>
+
+        <label>¿Vista?</label>
+        <input type="checkbox" id="view">
+
+        <label>¿Capturado?</label>
+        <input type="checkbox" id="catch">
+
+        <label>¿En equipo?</label>
+        <input type="checkbox" id="in_team">
+
+        <label>Nivel de poder:</label>
+        <input type="number" id="power_level" min="1" max="10" required>
+
+        <button type="submit">Registrar</button>
+    </form>
 </body>
 <script src="main.js"></script>
 </html>
